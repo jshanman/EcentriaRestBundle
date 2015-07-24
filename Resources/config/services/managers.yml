@@ -18,7 +18,9 @@ parameters:
 
     ecentria.api.request_creator.class:            Ecentria\Libraries\EcentriaRestBundle\Services\RequestCreator
 
-    ecentria.api.request_creator.class:            Ecentria\Libraries\CoreRestBundle\Services\RequestCreator
+    ecentria.api.request_creator.class:            Ecentria\Libraries\EcentriaRestBundle\Services\RequestCreator
+
+    ecentria.api.domain_message.class:            Ecentria\Libraries\EcentriaRestBundle\Services\MessageManager
 
 services:
 
@@ -108,3 +110,7 @@ services:
             - @request_stack
             - @router
             - @kernel
+    ecentria.api.domain_message.manager:
+        class: %ecentria.api.domain_message.class%
+        arguments:
+            - @event_dispatcher
