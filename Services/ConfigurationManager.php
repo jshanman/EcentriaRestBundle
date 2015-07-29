@@ -16,6 +16,8 @@ use Ecentria\Libraries\EcentriaRestBundle\Model\Configuration;
 use Symfony\Component\Routing\Route,
     Symfony\Component\Routing\Router;
 
+use Ecentria\Libraries\EcentriaRestBundle\Services\MessageManager;
+
 /**
  * Configuration manager
  *
@@ -31,13 +33,22 @@ class ConfigurationManager
     private $router;
 
     /**
+     * Message Manager
+     *
+     * @var MessageManager
+     */
+    private $messageManager;
+
+    /**
      * Constructor
      *
      * @param Router $router
+     * @param MessageManager $messageManager
      */
-    public function __construct(Router $router)
+    public function __construct(Router $router, MessageManager $messageManager)
     {
         $this->router = $router;
+        $this->messageManager = $messageManager;
     }
 
     /**
@@ -49,6 +60,7 @@ class ConfigurationManager
     {
         $configuration = new Configuration();
         $configuration->setRoutes($this->getRoutes());
+        $configuration->setMessageListenerKeys($this->getMessageListenerKeys());
         return $configuration;
     }
 
@@ -77,5 +89,16 @@ class ConfigurationManager
             }
         }
         return $routes;
+    }
+
+    /**
+     * Getting message listener keys
+     *
+     * @return ArrayCollection
+     */
+    private function getMessageListenerKeys()
+    {
+        return $this->messageManager->getListenerDomainKeys();
+
     }
 }

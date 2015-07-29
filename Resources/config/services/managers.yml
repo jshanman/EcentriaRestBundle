@@ -20,7 +20,8 @@ parameters:
 
     ecentria.api.request_creator.class:            Ecentria\Libraries\EcentriaRestBundle\Services\RequestCreator
 
-    ecentria.api.domain_message.class:            Ecentria\Libraries\EcentriaRestBundle\Services\MessageManager
+    ecentria.api.domain_message.class:             Ecentria\Libraries\EcentriaRestBundle\Services\MessageManager
+    ecentria.api.domain_message_consumer.class:    Ecentria\Libraries\EcentriaRestBundle\Consumer\MessageConsumer
 
 services:
 
@@ -39,6 +40,7 @@ services:
         class: %ecentria.api.configuration.manager.class%
         arguments:
             - @router
+            - @ecentria.api.domain_message.manager
 
     # Crud
     ecentria.api.crud.manager:
@@ -114,3 +116,9 @@ services:
         class: %ecentria.api.domain_message.class%
         arguments:
             - @event_dispatcher
+        calls:
+            - [setContainer, [@service_container]]
+    ecentria.api.domain_message_consumer.service:
+        class: %ecentria.api.domain_message_consumer.class%
+        arguments:
+            - @ecentria.api.domain_message.manager

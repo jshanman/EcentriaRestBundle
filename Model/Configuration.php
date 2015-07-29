@@ -27,6 +27,13 @@ class Configuration
     private $routes;
 
     /**
+     * MessageListenerKeys
+     *
+     * @var ArrayCollection
+     */
+    private $messageListenerKeys;
+
+    /**
      * Routes setter
      *
      * @param ArrayCollection $routes
@@ -48,4 +55,29 @@ class Configuration
     {
         return $this->routes;
     }
+
+    /**
+     * MessageListenerKeys setter
+     *
+     * @param ArrayCollection $keys
+     *
+     * @return Configuration
+     */
+    public function setMessageListenerKeys($keys)
+    {
+        $this->messageListenerKeys = $keys;
+        return $this;
+    }
+
+    /**
+     * MessageListenerKeys getter
+     *
+     * @return ArrayCollection
+     */
+    public function getMessageListenerKeys()
+    {
+        return $this->messageListenerKeys;
+    }
+
+
 }
